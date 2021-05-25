@@ -55,11 +55,11 @@ func search(cmd *cobra.Command, args []string) error {
 
 		o.Writeln(t)
 		a := ast.NewAst(t)
-		if err := a.Resolve(); err != nil{
+		if err := a.Resolve(); err != nil {
 			o.Writeln(err.Error())
 			continue
 		}
-		if config.Verbose{
+		if config.Verbose {
 			o.Writeln(a.Details())
 		}
 
@@ -92,11 +92,11 @@ func count(cmd *cobra.Command, args []string) error {
 
 		o.Writeln(t)
 		a := ast.NewAst(t)
-		if err := a.Resolve(); err != nil{
+		if err := a.Resolve(); err != nil {
 			o.Writeln(err.Error())
 			continue
 		}
-		if config.Verbose{
+		if config.Verbose {
 			o.Writeln(a.Details())
 		}
 
