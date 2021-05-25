@@ -25,7 +25,7 @@ jobs:
         golangci-lint version
     
     - name: Lint
-      run: golangci-lint run
+      run: golangci-lint run -v ./...
 
     - name: Build
       run: go build -v ./
