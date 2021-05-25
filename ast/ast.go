@@ -65,6 +65,7 @@ func (a *Ast) Resolve() error {
 			} else {
 				step += aStep
 			}
+			stage = fieldStage
 		default:
 			return errors.New("something happend while resolving")
 		}
@@ -109,27 +110,27 @@ func (a *Ast) handleTerms(fn string, argsIdx int) (elastic.Query, int, error) {
 	if argsIdx >= len(a.parts) {
 		return nil, 0, errors.New("no args for terms")
 	}
-	step := 1
+	step := 0
 
 	args := []interface{}{}
 	for {
-		arg, nowStep, err := parseWord(a.parts[argsIdx+step-1:])
+		arg, nowStep, err := parseWord(a.parts[argsIdx+step:])
 		if err != nil {
 			return nil, 0, err
 		}
-		step += nowStep - 1
+		step += nowStep
 		args = append(args, arg)
 
 		// can we have next args ?
-		if (argsIdx + (step + 1) - 1) >= len(a.parts) {
-			if isOperation(a.parts[argsIdx+(step+1)-1]) {
-				// next args is operation, so this one is field name
-				step -= nowStep - 1
-				args = args[:len(args)-1]
-			}
+		if (argsIdx + step) >= len(a.parts) {
+
+			break
+		} else if isOperation(a.parts[argsIdx+step]) {
+			// next args is operation, so this one is field name
+			step -= nowStep
+			args = args[:len(args)-1]
 			break
 		}
-		step += 1
 	}
 
 	return elastic.NewTermsQuery(fn, args...), step, nil
@@ -160,11 +161,11 @@ func (a *Ast) Query() interface{} {
 }
 
 func (a *Ast) Details() string {
-	s, err := a.q.Query.Source()
+	s, err := a.q.Source()
 	if err != nil {
 		return ""
 	}
 
-	b, _ := json.Marshal(s)
+	b, _ := json.MarshalIndent(s, "", "    ")
 	return string(b)
 }
