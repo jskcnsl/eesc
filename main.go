@@ -11,13 +11,13 @@ func main() {
 		Use:   "eesc",
 		Short: "Easy Elasticsearch Client",
 	}
-	rootCmd.Flags().StringVarP(&config.ServerAddress, "server", "s", "", "Address of database server")
-	rootCmd.Flags().StringVarP(&config.IndexName, "idx", "x", "", "Index to work around")
-	rootCmd.Flags().BoolVarP(&config.Verbose, "verbose", "v", false, "show details")
-	rootCmd.Flags().StringVarP(&config.QueryExp, "query", "q", "", "single query expression")
-	rootCmd.Flags().StringVarP(&config.JoinExp, "join", "j", "", "query which will join to each expression")
-	rootCmd.Flags().StringVarP(&config.ExpFile, "file", "f", "", "collection of exporession")
-	rootCmd.Flags().StringVarP(&config.OutputFile, "output", "o", "", "output file")
+	rootCmd.PersistentFlags().StringVarP(&config.ServerAddress, "server", "s", "", "Address of database server")
+	rootCmd.PersistentFlags().StringVarP(&config.IndexName, "idx", "x", "", "Index to work around")
+	rootCmd.PersistentFlags().BoolVarP(&config.Verbose, "verbose", "v", false, "show details")
+	rootCmd.PersistentFlags().StringVarP(&config.QueryExp, "query", "q", "", "single query expression")
+	rootCmd.PersistentFlags().StringVarP(&config.JoinExp, "join", "j", "", "query which will join to each expression")
+	rootCmd.PersistentFlags().StringVarP(&config.ExpFile, "file", "f", "", "collection of exporession")
+	rootCmd.PersistentFlags().StringVarP(&config.OutputFile, "output", "o", "", "output file")
 	_ = rootCmd.MarkFlagRequired("server")
 	_ = rootCmd.MarkFlagRequired("idx")
 
