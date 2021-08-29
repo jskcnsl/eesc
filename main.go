@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"runtime/debug"
+
 	"github.com/jskcnsl/eesc/config"
 
 	"github.com/spf13/cobra"
@@ -43,6 +46,7 @@ func main() {
 	)
 
 	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(string(debug.Stack()))
 		panic(err)
 	}
 }

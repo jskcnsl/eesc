@@ -33,8 +33,10 @@ func Validate() error {
 		return errors.New("idx is required")
 	}
 
-	if _, err := os.Stat(ExpFile); err != nil {
-		return err
+	if ExpFile != "" {
+		if _, err := os.Stat(ExpFile); err != nil {
+			return err
+		}
 	}
 
 	return nil

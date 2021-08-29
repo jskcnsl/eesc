@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strings"
 
@@ -21,6 +22,7 @@ func prepareTargets() ([]string, error) {
 		query = append(query, config.QueryExp)
 	}
 	if config.ExpFile != "" {
+		fmt.Printf("read expression from: %s\n", config.ExpFile)
 		content, err := os.ReadFile(config.ExpFile)
 		if err != nil {
 			return nil, err

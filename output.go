@@ -22,6 +22,7 @@ var (
 func initOutput(*cobra.Command, []string) error {
 	var err error
 	if config.OutputFile != "" {
+		fmt.Printf("store output to file: %s\n", config.OutputFile)
 		o, err = NewFileOutput(config.OutputFile)
 		if err != nil {
 			return err
