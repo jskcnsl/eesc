@@ -161,6 +161,10 @@ func (a *Ast) Query() interface{} {
 }
 
 func (a *Ast) Details() string {
+	if a.q == nil {
+		return "no query in ast"
+	}
+
 	s, err := a.q.Source()
 	if err != nil {
 		return ""
